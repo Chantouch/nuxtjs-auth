@@ -4,6 +4,7 @@
   ],
   "rules": {
     "require-await": 0,
-    "no-useless-constructor": 0
+    "no-useless-constructor": 0,
+    "no-console": "off"
   }
 }
