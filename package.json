@@ -1,0 +1,58 @@
+{
+  "name": "@nuxtjs/auth",
+  "version": "4.9.0",
+  "description": "Authentication module for Nuxt.js",
+  "repository": "nuxt-community/auth-module",
+  "license": "MIT",
+  "main": "./dist/module/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "templates"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "dev": "nuxt-ts demo",
+    "heroku-postbuild": "nuxt-ts build demo",
+    "lint": "eslint --ext .ts,.js,.vue .",
+    "lint-fix": "yarn lint --fix",
+    "release": "yarn clean && yarn build && standard-version && git push --follow-tags && npm publish",
+    "start": "nuxt-ts start demo",
+    "test": "yarn lint && yarn build && nuxt build test/fixture && jest"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.10.1",
+    "@nuxtjs/proxy": "^2.0.0",
+    "body-parser": "^1.19.0",
+    "consola": "^2.11.3",
+    "cookie": "^0.4.1",
+    "defu": "^2.0.2",
+    "js-cookie": "^2.2.1",
+    "jwt-decode": "^2.2.0",
+    "lodash": "^4.17.15",
+    "nanoid": "^3.1.3",
+    "requrl": "^2.0.1"
+  },
+  "devDependencies": {
+    "@nuxt/types": "latest",
+    "@nuxt/typescript-build": "latest",
+    "@nuxt/typescript-runtime": "latest",
+    "@nuxtjs/eslint-config-typescript": "latest",
+    "@types/jest": "latest",
+    "@types/node": "latest",
+    "bootstrap-vue": "latest",
+    "cookie-parser": "latest",
+    "eslint": "latest",
+    "express": "latest",
+    "express-jwt": "latest",
+    "get-port": "latest",
+    "jest": "latest",
+    "jsdom": "latest",
+    "lodash.get": "latest",
+    "nuxt-edge": "latest",
+    "puppeteer": "latest",
+    "standard-version": "latest",
+    "typescript": "latest"
+  }
+}
