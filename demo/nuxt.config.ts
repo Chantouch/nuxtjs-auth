@@ -13,10 +13,6 @@ export default {
     extractCSS: true
   },
   plugins: ['~/plugins/axios'],
-  serverMiddleware: [
-    '~/api/auth',
-    '~/api/oauth2mockserver'
-  ],
   buildModules: [
     '@nuxt/typescript-build'
   ],
