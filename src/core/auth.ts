@@ -28,16 +28,14 @@ export default class Auth {
   }
 
   async init () {
-    if (this.ctx.route.name.startsWith('admin')) {
-      this.ctx.$auth.$storage.setState('strategy', 'admin')
-      this.ctx.$auth.$storage.setUniversal('strategy', 'admin')
-      this.ctx.$auth.setStrategy('admin')
-    }
-    if (this.ctx.route.name.startsWith('staff')) {
-      this.ctx.$auth.$storage.setState('strategy', 'staff')
-      this.ctx.$auth.$storage.setUniversal('strategy', 'staff')
-      this.ctx.$auth.setStrategy('staff')
-    }
+    const defaultStrategies: string[] = this.options.defaultStrategies
+    defaultStrategies.forEach((strategy: string) => {
+      if (this.ctx.route.name.startsWith(strategy)) {
+        this.ctx.$auth.$storage.setState('strategy', strategy)
+        this.ctx.$auth.$storage.setUniversal('strategy', strategy)
+        this.ctx.$auth.setStrategy(strategy)
+      }
+    })
     // Reset on error
     if (this.options.resetOnError) {
       this.onError((...args) => {

@@ -14,16 +14,14 @@ export default async function authMiddleware (ctx) {
   }
 
   const pageIsInMode = mode => routeOption(ctx.route, 'auth', mode)
-  if (ctx.route.name.startsWith('admin')) {
-    ctx.$auth.$storage.setState('strategy', 'admin')
-    ctx.$auth.$storage.setUniversal('strategy', 'admin')
-    ctx.$auth.setStrategy('admin')
-  }
-  if (ctx.route.name.startsWith('staff')) {
-    ctx.$auth.$storage.setState('strategy', 'staff')
-    ctx.$auth.$storage.setUniversal('strategy', 'staff')
-    ctx.$auth.setStrategy('staff')
-  }
+  const defaultStrategies: string[] = ctx.$auth.options.defaultStrategies
+  defaultStrategies.forEach((strategy: string) => {
+    if (ctx.route.name.startsWith(strategy)) {
+      ctx.$auth.$storage.setState('strategy', strategy)
+      ctx.$auth.$storage.setUniversal('strategy', strategy)
+      ctx.$auth.setStrategy(strategy)
+    }
+  })
   const token = ctx.$auth.strategy.token.get()
   ctx.$auth.strategy.token.set(token)
   const { login, callback } = ctx.$auth.options.redirect
