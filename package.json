@@ -1,8 +1,8 @@
 {
-  "name": "@nuxtjs/auth",
-  "version": "4.9.0",
+  "name": "nuxt-auth",
+  "version": "0.0.1",
   "description": "Authentication module for Nuxt.js",
-  "repository": "nuxt-community/auth-module",
+  "repository": "https://github.com/Chantouch/nuxt-auth",
   "license": "MIT",
   "main": "./dist/module/index.js",
   "types": "./dist/index.d.ts",
