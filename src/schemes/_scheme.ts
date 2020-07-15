@@ -6,6 +6,7 @@ export default class BaseScheme<OptionsT extends SchemeOptions> {
 
   constructor (public $auth: Auth, ...options: OptionsT[]) {
     this.options = options.reduce((p, c) => defu(p, c))
+    // this.options = options.reduce((p, c) => defu(p, c), {})
   }
 
   get name (): string {
