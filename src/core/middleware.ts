@@ -13,13 +13,24 @@ export default async function authMiddleware (ctx) {
     return
   }
 
+  const pageIsInMode = mode => routeOption(ctx.route, 'auth', mode)
+  if (ctx.route.name.startsWith('admin')) {
+    ctx.$auth.$storage.setState('strategy', 'admin')
+    ctx.$auth.$storage.setUniversal('strategy', 'admin')
+    ctx.$auth.setStrategy('admin')
+  }
+  if (ctx.route.name.startsWith('staff')) {
+    ctx.$auth.$storage.setState('strategy', 'staff')
+    ctx.$auth.$storage.setUniversal('strategy', 'staff')
+    ctx.$auth.setStrategy('staff')
+  }
+  const token = ctx.$auth.strategy.token.get()
+  ctx.$auth.strategy.token.set(token)
   const { login, callback } = ctx.$auth.options.redirect
-  const pageIsInGuestMode = routeOption(ctx.route, 'auth', 'guest')
   const insidePage = page => normalizePath(ctx.route.path) === normalizePath(page)
-
   if (ctx.$auth.$state.loggedIn) {
     // -- Authorized --
-    if (!login || insidePage(login) || pageIsInGuestMode) {
+    if (!login || insidePage(login) || pageIsInMode('guest')) {
       ctx.$auth.redirect('home')
     }
 
@@ -43,7 +54,7 @@ export default async function authMiddleware (ctx) {
     // -- Guest --
     // (Those passing `callback` at runtime need to mark their callback component
     // with `auth: false` to avoid an unnecessary redirect from callback to login)
-  } else if (!pageIsInGuestMode && (!callback || !insidePage(callback))) {
+  } else if (!pageIsInMode('guest') && (!callback || !insidePage(callback))) {
     ctx.$auth.redirect('login')
   }
 }

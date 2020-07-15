@@ -1,6 +1,7 @@
 import { resolve, join } from 'path'
 import merge from 'lodash/merge'
 import uniq from 'lodash/uniq'
+import map from 'lodash/map'
 import defaults from './defaults'
 import { resolveStrategies } from './resolve'
 
@@ -14,6 +15,7 @@ export default function (moduleOptions) {
 
   // Set defaultStrategy
   options.defaultStrategy = options.defaultStrategy || strategies.length ? strategies[0].name : ''
+  options.defaultStrategies = map(strategies, 'name')
 
   // Add plugin
   const { dst } = this.addTemplate({

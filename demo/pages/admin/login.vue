@@ -59,12 +59,6 @@ export default {
     }
   },
   computed: {
-    strategies: () => [
-      { key: 'auth0', name: 'Auth0', color: '#ec5425' },
-      { key: 'google', name: 'Google', color: '#4284f4' },
-      { key: 'facebook', name: 'Facebook', color: '#3c65c4' },
-      { key: 'github', name: 'GitHub', color: '#202326' }
-    ],
     redirect () {
       return (
         this.$route.query.redirect &&
@@ -97,7 +91,7 @@ export default {
       this.error = null
 
       return this.$auth
-        .loginWith('local', {
+        .loginWith('admin', {
           data: {
             email: this.username,
             password: this.password

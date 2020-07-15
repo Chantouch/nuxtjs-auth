@@ -46,6 +46,7 @@ export default {
   // -- Strategies --
 
   defaultStrategy: undefined /* will be auto set at module level */,
+  defaultStrategies: [] /* will be auto set at module level */,
 
   strategies: {}
 }

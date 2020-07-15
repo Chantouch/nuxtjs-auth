@@ -5,6 +5,8 @@ import consola from 'consola'
 const logger = consola.withScope('nuxt:auth')
 const builtInSchemes = [
   'local',
+  'admin',
+  'staff',
   'cookie',
   'oauth2',
   'refresh'

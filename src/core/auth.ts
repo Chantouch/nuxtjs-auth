@@ -28,6 +28,16 @@ export default class Auth {
   }
 
   async init () {
+    if (this.ctx.route.name.startsWith('admin')) {
+      this.ctx.$auth.$storage.setState('strategy', 'admin')
+      this.ctx.$auth.$storage.setUniversal('strategy', 'admin')
+      this.ctx.$auth.setStrategy('admin')
+    }
+    if (this.ctx.route.name.startsWith('staff')) {
+      this.ctx.$auth.$storage.setState('strategy', 'staff')
+      this.ctx.$auth.$storage.setUniversal('strategy', 'staff')
+      this.ctx.$auth.setStrategy('staff')
+    }
     // Reset on error
     if (this.options.resetOnError) {
       this.onError((...args) => {
@@ -58,7 +68,7 @@ export default class Auth {
     } finally {
       // Watch for loggedIn changes only in client side
       if (process.client && this.options.watchLoggedIn) {
-        this.$storage.watchState('loggedIn', (loggedIn) => {
+        this.$storage.watchState('loggedIn', (loggedIn: any) => {
           if (!routeOption(this.ctx.route, 'auth', false)) {
             this.redirect(loggedIn ? 'home' : 'logout')
           }
@@ -318,13 +328,14 @@ export default class Auth {
   }
 
   redirect (name, noRouter = false) {
-    if (!this.options.redirect) {
+    const { redirect = {} } = this.strategy.options
+    if (!this.options.redirect && !redirect) {
       return
     }
 
     const from = this.options.fullPathRedirect ? this.ctx.route.fullPath : this.ctx.route.path
 
-    let to = this.options.redirect[name]
+    let to = redirect[name]
     if (!to) {
       return
     }

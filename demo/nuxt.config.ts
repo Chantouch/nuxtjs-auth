@@ -31,11 +31,12 @@ export default {
     retry: {
       retries: 3
     },
-    baseURL: process.env.API_HOST
+    baseURL: process.env.API_HOST,
+    debug: process.env.NODE_ENV !== 'production'
   },
   proxy: {
     '/api': {
-      target: 'http://multi-auth.test',
+      target: process.env.API_HOST,
       pathRewrite: {
         '^/api': '/'
       },
@@ -43,12 +44,10 @@ export default {
     }
   },
   auth: {
-    redirect: {
-      callback: '/callback',
-      logout: '/signed-out'
-    },
+    redirect: false,
     strategies: {
-      local: {
+      local: false,
+      admin: {
         token: {
           property: 'access_token',
           required: true,
@@ -56,12 +55,44 @@ export default {
         },
         user: {
           property: 'user',
-          autoFetch: true
+          autoFetch: true,
+          type: 'Bearer'
         },
         endpoints: {
           login: { url: '/api/admins/login', method: 'post' },
           logout: { url: '/api/admins/logout', method: 'post' },
           user: { url: '/api/admins/user', method: 'get' }
+        },
+        isDefault: true,
+        redirect: {
+          callback: '/admin/callback',
+          logout: '/admin/signed-out',
+          home: '/admin/secure',
+          login: '/admin/login'
+        }
+      },
+      staff: {
+        token: {
+          property: 'access_token',
+          required: true,
+          type: 'Bearer'
+        },
+        user: {
+          property: 'user',
+          autoFetch: true,
+          type: 'Bearer'
+        },
+        endpoints: {
+          login: { url: '/api/users/login', method: 'post' },
+          logout: { url: '/api/users/logout', method: 'post' },
+          user: { url: '/api/users/user', method: 'get' }
+        },
+        isDefault: true,
+        redirect: {
+          callback: '/staff/callback',
+          logout: '/staff/signed-out',
+          home: '/staff/secure',
+          login: '/staff/login'
         }
       }
     },

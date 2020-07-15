@@ -5,7 +5,7 @@ export enum TokenStatusEnum {
 }
 
 export default class TokenStatus {
-  private _status: TokenStatusEnum
+  private readonly _status: TokenStatusEnum
 
   constructor (token, tokenExpiresAt) {
     this._status = this._calculate(token, tokenExpiresAt)

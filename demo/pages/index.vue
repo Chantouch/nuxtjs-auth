@@ -1,20 +1,28 @@
 <template>
   <div>
     <b-jumbotron class="text-center">
-      <h3>Welcome to Nuxt.js auth example</h3>
+      <h3>Welcome to Nuxt auth example</h3>
       This demo is using auth-module v{{ version }}
       <div class="mt-1">
         <template v-if="$auth.$state.loggedIn">
-          <b-btn class="ml-3" variant="info" to="/secure">
-            Secure
+          <b-btn class="ml-3" variant="info" to="/admin/secure">
+            Admin Secure
+          </b-btn>
+          <b-btn class="ml-3" variant="primary" to="/staff/secure">
+            Staff Secure
           </b-btn>
           <b-btn class="ml-3" variant="danger" @click="$auth.logout()">
             Logout
           </b-btn>
         </template>
-        <b-btn v-else variant="success" to="/login">
-          Login
-        </b-btn>
+        <template v-else>
+          <b-btn variant="success" to="/admin/login">
+            Admin Login
+          </b-btn>
+          <b-btn variant="info" to="/staff/login">
+            Staff Login
+          </b-btn>
+        </template>
       </div>
     </b-jumbotron>
 

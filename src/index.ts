@@ -33,6 +33,7 @@ export type SchemeCheck = {
 export type AuthOptions = {
   resetOnError: boolean | Function
   defaultStrategy: string
+  defaultStrategies: string[]
   watchLoggedIn?: boolean
   rewriteRedirects: boolean
   fullPathRedirect: boolean
