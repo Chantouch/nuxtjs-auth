@@ -1,6 +1,6 @@
 {
   "name": "nuxt-auth",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Authentication module for Nuxt.js",
   "repository": "https://github.com/Chantouch/nuxt-auth",
   "license": "MIT",
