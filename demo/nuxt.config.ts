@@ -51,8 +51,7 @@ export default {
         },
         user: {
           property: 'user',
-          autoFetch: true,
-          type: 'Bearer'
+          autoFetch: true
         },
         endpoints: {
           login: { url: '/api/admins/login', method: 'post' },
@@ -75,8 +74,7 @@ export default {
         },
         user: {
           property: 'user',
-          autoFetch: true,
-          type: 'Bearer'
+          autoFetch: true
         },
         endpoints: {
           login: { url: '/api/users/login', method: 'post' },
